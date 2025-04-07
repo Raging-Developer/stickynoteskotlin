@@ -72,7 +72,7 @@ fun stickyNoteView(context: Context, composeView: ComposeView) {
 
     Column(modifier = Modifier.fillMaxSize().padding(top = 60.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        // This is the replacement for recycler view, this is all I wanted.
+        // This is the replacement for recycler view, which is pretty clever
         LazyColumn(modifier = Modifier.background(Color.Black)) {
             itemsIndexed(note_list) { index, item ->
                 Card(
