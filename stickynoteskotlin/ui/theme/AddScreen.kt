@@ -1,5 +1,6 @@
 package app.stickynoteskotlin.ui.theme
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,12 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.stickynoteskotlin.addingTheNewNote
+import app.stickynoteskotlin.addNewNote
 
 @Composable
 fun addScreen() {
     var context = LocalContext.current
-    val title = remember {
+    var title = remember {
         mutableStateOf(TextFieldValue())
     }
     val note_text = remember {
@@ -52,12 +53,13 @@ fun addScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         TextField(
+            enabled = false,
             value = title.value,
             onValueChange = { title.value = it },
             placeholder = { Text(text = "This will be time and date") },//this is time and date
             modifier = Modifier.fillMaxWidth(),
             textStyle = TextStyle(color = Color.Black, fontSize = 15.sp),
-            singleLine = true
+            singleLine = false
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -68,7 +70,7 @@ fun addScreen() {
             placeholder = { Text(text = "Enter a note") },
             modifier = Modifier.fillMaxWidth(),
             textStyle = TextStyle(color = Color.Black, fontSize = 15.sp),
-            singleLine = true
+            singleLine = false
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -77,9 +79,8 @@ fun addScreen() {
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter) {
         Button(onClick = {
-            addingTheNewNote(
+            addNewNote(
                 context,
-                title.value.text,
                 note_text.value.text
             )
         }) { Text(text = "Add", color = Color.White) }
