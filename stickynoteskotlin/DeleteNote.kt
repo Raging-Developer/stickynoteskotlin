@@ -76,7 +76,7 @@ class DeleteNote() : AppCompatActivity(){
             })
         } else {
             dia.setTitle("Success")
-            dia.setMessage("Course has been deleted")
+            dia.setMessage("Note has been deleted")
             dia.setPositiveButton("Okie Dokie", { l: DialogInterface, i: Int ->
                 context.startActivity(Intent(context, MainActivity::class.java))
             })
