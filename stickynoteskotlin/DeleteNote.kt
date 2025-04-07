@@ -1,5 +1,6 @@
 package app.stickynoteskotlin
 
+
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -25,8 +26,7 @@ class DeleteNote() : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         val b: Bundle? = intent.extras
-        val desc = b?.getString("Note")
-        val name = b?.getString("Title")
+        val note_text = b?.getString("note")
         row_id = b?.getLong("id")
 
         setContentView(R.layout.mainactivity)
@@ -40,7 +40,7 @@ class DeleteNote() : AppCompatActivity(){
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        deleteScreen(desc, name)
+                        deleteScreen(note_text)
                     }
                 }
             }
@@ -55,7 +55,7 @@ class DeleteNote() : AppCompatActivity(){
         item.itemId
         when (item.itemId) {
             R.id.to_delete -> {
-                deleteCourse(this, row_id)
+                deleteNote(this, row_id)
                 return true
             }
             else -> { super.onOptionsItemSelected(item) }
@@ -63,7 +63,7 @@ class DeleteNote() : AppCompatActivity(){
         return false
     }
 
-    fun deleteCourse(context: Context, rowid: Long?) {
+    fun deleteNote(context: Context, rowid: Long?) {
         var dia = AlertDialog.Builder(context)
         val db = Db_Helper(context).writableDatabase
 
