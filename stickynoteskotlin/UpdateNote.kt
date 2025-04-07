@@ -1,5 +1,6 @@
 package app.stickynoteskotlin
 
+
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
@@ -51,18 +52,28 @@ fun updateCourse(
 
     cv.put(key_note, note_text)
 
-    if (db.update(DB_TABLE, cv, "$key_row_id = $row_id", null) == 0) {
+    if (note_text!!.isEmpty()) {
         dia.setTitle("Borked")
-        dia.setMessage("your edit did not work")
-        dia.setPositiveButton("Try again", { l: DialogInterface, i: Int ->
+        dia.setMessage("nothing to add")
+        dia.setPositiveButton("Needs more text", { l: DialogInterface, i: Int ->
             context.startActivity(Intent(context, MainActivity::class.java))
         })
-    } else {
-        dia.setTitle("Success")
-        dia.setMessage("Course has been updated")
-        dia.setPositiveButton("Okie Dokie", { l: DialogInterface, i: Int ->
-            context.startActivity(Intent(context, MainActivity::class.java))
-        })
+    }
+    else {
+        if (db.update(DB_TABLE, cv, "$key_row_id = $row_id", null) == 0) {
+            dia.setTitle("Borked")
+            dia.setMessage("your edit did not work")
+            dia.setPositiveButton("Try again", { l: DialogInterface, i: Int ->
+                context.startActivity(Intent(context, MainActivity::class.java))
+            })
+        } else {
+            dia.setTitle("Edit applied")
+            dia.setMessage("and it cannot be undone or rolled back")
+            dia.setPositiveButton("Okie Dokie", { l: DialogInterface, i: Int ->
+                context.startActivity(Intent(context, MainActivity::class.java))
+            })
+
+        }
     }
     dia.create()
     dia.show()
