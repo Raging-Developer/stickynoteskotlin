@@ -1,5 +1,6 @@
 package app.stickynoteskotlin.ui.theme
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,15 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun deleteScreen(note: String?, note_title: String?){
+fun deleteScreen(note: String?){
     val note_text : String = note.toString()
-    val title : String = note_title.toString()
 
     Column(
         modifier = Modifier.fillMaxSize().padding(all = 30.dp).background(Color.Black),
@@ -37,11 +36,7 @@ fun deleteScreen(note: String?, note_title: String?){
         Spacer(modifier = Modifier.height(20.dp))
 
         TextField(
-            value = title,
-            onValueChange = { title })
-        Spacer(modifier = Modifier.height(20.dp))
-
-        TextField(
+            enabled = false,
             value = note_text,
             onValueChange = { note_text })
         Spacer(modifier = Modifier.height(15.dp))
