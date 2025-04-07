@@ -1,5 +1,6 @@
 package app.stickynoteskotlin
 
+
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -25,12 +26,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.stickynoteskotlin.Db_Helper.Companion.DB_TABLE
 import app.stickynoteskotlin.Db_Helper.Companion.key_note
 import app.stickynoteskotlin.Db_Helper.Companion.key_row_id
 import app.stickynoteskotlin.Db_Helper.Companion.key_title
+import app.stickynoteskotlin.MainActivity.Companion.font_name
+import app.stickynoteskotlin.MainActivity.Companion.font_size
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -42,6 +48,13 @@ fun stickyNoteView(context: Context, composeView: ComposeView) {
     var title = c!!.getColumnIndex(key_title)
     var note_text = c.getColumnIndex(key_note)
 
+    var myFont = FontFamily(Font(R.font.indieflower))
+
+    //the goggle cultists are at it again...
+    if (font_name == "Note_this.ttf") {
+        myFont = FontFamily(Font(R.font.note_this))
+    }
+
     composeView.apply{
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
     }
@@ -51,7 +64,7 @@ fun stickyNoteView(context: Context, composeView: ComposeView) {
         val crowid = c.getLong(rowid)
         val ctitle = c.getString(title)
         val cnote = c.getString(note_text)
-        val sticky_note = StickyNotes(crowid, ctitle, cnote)//if these are null you have borked the database
+        val sticky_note = StickyNotes(crowid, ctitle, cnote)
         note_list.add(sticky_note)
         c.moveToNext()
     }
@@ -86,16 +99,18 @@ fun stickyNoteView(context: Context, composeView: ComposeView) {
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Note text :" + note_list[index].note,
+                            text = "Date added : " + note_list[index].title,
                             modifier = Modifier.padding(4.dp),
                             color = Color.White, textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            text = "This will be time and date : " + note_list[index].title,
+                            text = note_list[index].note,
                             modifier = Modifier.padding(4.dp),
-                            color = Color.White, textAlign = TextAlign.Center
+                            color = Color.White, textAlign = TextAlign.Center,
+                            fontFamily = myFont,
+                            fontSize = font_size!!.sp
                         )
                     }
                 }
@@ -106,6 +121,8 @@ fun stickyNoteView(context: Context, composeView: ComposeView) {
         contentAlignment = Alignment.BottomEnd){
         FloatingActionButton(onClick = {
             val i = Intent(context, AddNewNote::class.java)
+            i.putExtra("font_size", font_size)
+            i.putExtra("font_name", font_name)
             context.startActivity(i)},
             modifier = Modifier.padding(all = 2.dp),
             containerColor = Color.DarkGray,
