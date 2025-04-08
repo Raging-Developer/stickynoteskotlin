@@ -48,9 +48,6 @@ fun editScreen(desc: String?, row_id: Long?){
         TextField(
             value = note_text.value,
             onValueChange = { note_text.value = it },
-            placeholder = { Text(text = desc.toString(),
-                fontFamily = myFont,
-                fontSize = font_size!!.sp) },
             modifier = Modifier.fillMaxWidth(),
             textStyle = TextStyle(color = Color.Black, fontSize = font_size!!.sp, fontFamily = myFont)
         )
