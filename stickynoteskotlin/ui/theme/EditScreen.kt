@@ -18,16 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import app.stickynoteskotlin.MainActivity.Companion.font_name
+import app.stickynoteskotlin.MainActivity.Companion.font_size
+import app.stickynoteskotlin.R
 import app.stickynoteskotlin.updateCourse
 
 @Composable
 fun editScreen(desc: String?, row_id: Long?){
     val context = LocalContext.current
     val note_text = remember {
-        mutableStateOf(TextFieldValue())
+        mutableStateOf(TextFieldValue()).apply { value = TextFieldValue(desc.toString()) }
+    }
+    var myFont = FontFamily(Font(R.font.indieflower))
+
+    if (font_name == "Note_this.ttf") {
+        myFont = FontFamily(Font(R.font.note_this))
     }
 
     Column(
@@ -38,9 +48,11 @@ fun editScreen(desc: String?, row_id: Long?){
         TextField(
             value = note_text.value,
             onValueChange = { note_text.value = it },
-            placeholder = { Text(text = desc.toString()) },
+            placeholder = { Text(text = desc.toString(),
+                fontFamily = myFont,
+                fontSize = font_size!!.sp) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color = Color.Black, fontSize = 15.sp)
+            textStyle = TextStyle(color = Color.Black, fontSize = font_size!!.sp, fontFamily = myFont)
         )
     }
 
