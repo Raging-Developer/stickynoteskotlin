@@ -27,12 +27,7 @@ import java.time.format.DateTimeFormatter
 class AddNewNote(): AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val b: Bundle? = intent.extras
-        font_size = b?.getInt("font_size")
-        val font_name = b?.getString("font_name")
-        val fonts = Typeface.createFromAsset(assets, "fonts/$font_name")
-
+        
         setContent{
             StickyNotesKotlinTheme {
                 Surface(
