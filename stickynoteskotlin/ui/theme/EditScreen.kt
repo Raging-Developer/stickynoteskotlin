@@ -56,7 +56,7 @@ fun editScreen(desc: String?, row_id: Long?){
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter) {
         Button(onClick = {
-            updateCourse(
+            updateNote(
                 context,
                 note_text.value.text,
                 row_id
