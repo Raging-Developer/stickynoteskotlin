@@ -54,7 +54,7 @@ fun editScreen(desc: String?, row_id: Long?){
     }
 
     Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomCenter) {
+        contentAlignment = Alignment.BottomEnd) {
         Button(onClick = {
             updateNote(
                 context,
@@ -62,5 +62,13 @@ fun editScreen(desc: String?, row_id: Long?){
                 row_id
             )
         }) { Text(text = "update", color = Color.White) }
+    }
+
+    Box(modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomStart) {
+        Button(onClick = {
+            val i = Intent(context, MainActivity::class.java)
+            context.startActivity(i)
+        }) { Text(text = "No, I'm good, go back", color = Color.White) }
     }
 }
