@@ -46,8 +46,6 @@ fun deleteScreen(note: String?){
         contentAlignment = Alignment.BottomCenter) {
         Button(onClick = {
             val i = Intent(context, MainActivity::class.java)
-            i.putExtra("font_size", font_size)
-            i.putExtra("font_name", font_name)
             context.startActivity(i)
         }) { Text(text = "Do not delete, go back", color = Color.White) }
     }
