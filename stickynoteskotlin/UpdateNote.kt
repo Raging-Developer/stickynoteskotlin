@@ -41,7 +41,7 @@ class UpdateNote() : AppCompatActivity() {
     }
 }
 
-fun updateCourse(
+fun updateNote(
     context: Context,
     note_text: String?,
     row_id: Long?) {
