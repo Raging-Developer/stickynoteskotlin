@@ -31,8 +31,7 @@ import app.stickynoteskotlin.R
 import app.stickynoteskotlin.stickyNoteView
 
 @Composable
-fun deleteScreen(note: String?){
-    var isClicked = remember { mutableStateOf(false) }
+fun deleteScreen(note: String?){    
     val context = LocalContext.current
     val note_text : String = note.toString()
     var myFont = FontFamily(Font(R.font.indieflower))
@@ -67,10 +66,11 @@ fun deleteScreen(note: String?){
 
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter) {
-        Button(onClick = { isClicked.value = true})
+        Button(onClick = {
+            val i = Intent(context, MainActivity::class.java)
+            context.startActivity(i)
+        })
         { Text(text = "Do not delete, go back", color = Color.White) }
-        if (isClicked.value) {
-            stickyNoteView(context, ComposeView(context))
-        }
+
     }
 }
