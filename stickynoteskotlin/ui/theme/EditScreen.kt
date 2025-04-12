@@ -29,8 +29,7 @@ import app.stickynoteskotlin.R
 import app.stickynoteskotlin.updateCourse
 
 @Composable
-fun editScreen(desc: String?, row_id: Long?){
-    var isClicked = remember { mutableStateOf(false) }
+fun editScreen(desc: String?, row_id: Long?){    
     val context = LocalContext.current
     val note_text = remember {
         mutableStateOf(TextFieldValue()).apply { value = TextFieldValue(desc.toString()) }
@@ -67,10 +66,10 @@ fun editScreen(desc: String?, row_id: Long?){
 
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomStart) {
-        Button(onClick = { isClicked.value = true})
+        Button(onClick = {
+            val i = Intent(context, MainActivity::class.java)
+            context.startActivity(i)
+        })
         { Text(text = "No, I'm good, go back", color = Color.White) }
-        if (isClicked.value) {
-            stickyNoteView(context, ComposeView(context))
-        }
     }
 }
