@@ -93,6 +93,13 @@ class MainActivity : AppCompatActivity() {
                 val i = Intent(this, Prefs::class.java)
                 startActivity(i)
             }
+            R.id.credit -> {
+                val i = Intent(this, Credit::class.java)
+                i.putExtra("title", "Sticky paper the note taker")
+                i.putExtra("text", " Made by Chris Harte. Because he could\n"
+                + " The fonts are Note_this and IndieFlower taken from fontsquirrel.\n")
+                startActivity(i)
+            }
             else -> {
                 super.onOptionsItemSelected(item)
             }
