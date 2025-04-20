@@ -9,4 +9,9 @@ Got the preferences in at last. For some reason the cultists at goggle have hidd
 Though I have to be honest, as much as I detest the bleating from the goggle cultists about reduced boiler plate, replacing the recycler adapter with a lazyColumn is pretty clever.
 (What the cultists call boilerplate code I call the ability to see what is going on. Have you tried debugging a composable? That's all I'm asking, have you tried? Lambda's are just as bad.)
 
+Something I found out, the hard way. When you create a new app this library is automatically included into your gradle build file: 
+implementation(libs.androidx.benchmark.macro)
+
+If you build your app with it still in the play store automatically rejects the app with a QUERY_ALL_PACKAGES error, with no indication of how to fix it. Doing a goggle search (irony) is not much help either.
+
 Missing all the "boilerplate" like font files, asset files, menus and xml files.
