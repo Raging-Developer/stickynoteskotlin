@@ -44,6 +44,12 @@ class DeleteNote() : AppCompatActivity(){
                     }
                 }
             }
+            
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@DeleteNote, MainActivity::class.java))
+            }
+        })    
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
