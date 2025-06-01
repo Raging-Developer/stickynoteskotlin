@@ -37,6 +37,12 @@ class UpdateNote() : AppCompatActivity() {
                 }
             }
 
+            onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    startActivity(Intent(this@UpdateNote, MainActivity::class.java))
+                }
+            })
+
         }
     }
 }
