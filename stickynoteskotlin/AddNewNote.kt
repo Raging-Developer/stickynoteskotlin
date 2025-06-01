@@ -38,6 +38,12 @@ class AddNewNote(): AppCompatActivity() {
                 }
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@AddNewNote, MainActivity::class.java))
+            }
+        })
     }
 }
 
