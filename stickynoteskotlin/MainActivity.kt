@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
 
         call_readDataFromDatabase()
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@MainActivity, MainActivity::class.java))
+            }
+        })
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
