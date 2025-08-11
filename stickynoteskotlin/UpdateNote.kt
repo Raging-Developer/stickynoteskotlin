@@ -1,25 +1,32 @@
 package app.stickynoteskotlin
 
-
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import app.stickynoteskotlin.Db_Helper.Companion.DB_TABLE
 import app.stickynoteskotlin.Db_Helper.Companion.key_note
 import app.stickynoteskotlin.Db_Helper.Companion.key_row_id
+import app.stickynoteskotlin.DeleteNote
 import app.stickynoteskotlin.ui.theme.StickyNotesKotlinTheme
 import app.stickynoteskotlin.ui.theme.editScreen
+import kotlin.getValue
 
 class UpdateNote() : AppCompatActivity() {
+    private val viewModel: NotesViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,12 +35,15 @@ class UpdateNote() : AppCompatActivity() {
         val row_id = b?.getLong("id")
 
         setContent {
+            val font_name by viewModel.fontName.collectAsState()
+            val font_size by viewModel.fontSize.collectAsState()
+
             StickyNotesKotlinTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    editScreen(desc, row_id)
+                    editScreen(desc, row_id, font_name, font_size)
                 }
             }
 
@@ -42,15 +52,13 @@ class UpdateNote() : AppCompatActivity() {
                     startActivity(Intent(this@UpdateNote, MainActivity::class.java))
                 }
             })
-
         }
     }
 }
 
-fun updateNote(
-    context: Context,
-    note_text: String?,
-    row_id: Long?) {
+fun updateNote(context: Context,
+               note_text: String?,
+               row_id: Long?) {
 
     val db = Db_Helper(context).writableDatabase
     val cv = ContentValues()
