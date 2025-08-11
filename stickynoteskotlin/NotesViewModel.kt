@@ -26,9 +26,6 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadNotes() {
         viewModelScope.launch {
-            // It's better to move database operations to a background thread.
-            // For simplicity here, it's direct, but consider a repository pattern
-            // with a dispatcher for IO operations.
             val context = getApplication<Application>().applicationContext
             val notes = ArrayList<StickyNotes>()
             load_cursor(context, notes) // Uses your existing load_cursor
