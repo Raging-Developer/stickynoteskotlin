@@ -25,19 +25,15 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun loadNotes() {
-        viewModelScope.launch {
-            val context = getApplication<Application>().applicationContext
-            val notes = ArrayList<StickyNotes>()
-            load_cursor(context, notes) // Uses your existing load_cursor
-            _notesList.value = notes
-        }
+        val context = getApplication<Application>().applicationContext
+        val notes = ArrayList<StickyNotes>()
+        load_cursor(context, notes)
+        _notesList.value = notes
     }
 
     fun loadFontSettings() {
-        viewModelScope.launch {
-            val context = getApplication<Application>().applicationContext
-            _fontSize.value = get_font_size(context) ?: 20
-            _fontName.value = get_font_name(context)
-        }
+        val context = getApplication<Application>().applicationContext
+        _fontSize.value = get_font_size(context) ?: 20
+        _fontName.value = get_font_name(context)
     }
 }
