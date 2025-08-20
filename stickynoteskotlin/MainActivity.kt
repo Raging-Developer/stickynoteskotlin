@@ -35,7 +35,19 @@ class MainActivity : AppCompatActivity(), StickyNoteActions {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar
 
-        call_readDataFromDatabase()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                launch {
+                    viewModel.loadFontSettings()
+                }
+                launch {
+                    viewModel.loadNotes()
+                }
+                launch {
+                    call_readDataFromDatabase()
+                }
+            }
+        }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
